@@ -42,7 +42,7 @@ def main():
     response = requests.post(attachment_url, headers=headers, data=image_data, auth=("user", os.environ["GITHUB_TOKEN"]))
 
     # Edit the comment to include the uploaded image
-    call(["gh", "pr", "comment", str(pr_number), "--edit-last", "--body", "![Screenshot](attachment://screenshot.png)"])
+    call(["gh", "pr", "comment", str(pr_number), "--edit-last", "--body", "![Screenshot](data:image/png;base64,$(base64 -w0 screenshot.png))"])
 
     # Logout from GitHub CLI
     #call(["gh", "auth", "logout"])
