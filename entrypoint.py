@@ -36,7 +36,7 @@ def main():
     headers = {
          "Authorization": f"token {os.environ['GITHUB_TOKEN']}",
         #"Content-Type": "image/png",
-        "Content-Type": "text/markdown; charset=UTF-8"
+        "Content-Type": "text/markdown; charset=UTF-8",
         "Content-Disposition": "attachment;filename=screenshot.png"
     }
     for entry in os.scandir('.'):
