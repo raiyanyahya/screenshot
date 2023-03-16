@@ -29,8 +29,11 @@ apt-get update && apt-get install -y gh
 # Get the pull request number from the GitHub Actions event payload
 PR_NUMBER=$(jq -r '.number' "$GITHUB_EVENT_PATH")
 
+# Extract the hostname from the GITHUB_SERVER_URL environment variable
+GITHUB_HOSTNAME=$(echo $GITHUB_SERVER_URL | awk -F[/:] '{print $4}')
+
 # Post the screenshot on the PR
-gh pr comment "$PR_NUMBER" --body "![Screenshot](screenshot.png)"
+gh pr comment "$PR_NUMBER" --hostname "$GITHUB_HOSTNAME" --body "![Screenshot](screenshot.png)"
 
 # Post the screenshot as a comment on the PR
 #pr_comment="![Screenshot](data:image/png;base64,$(base64 -w0 screenshot.png))"
