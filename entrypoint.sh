@@ -31,7 +31,7 @@ PR_NUMBER=$(jq -r '.number' "$GITHUB_EVENT_PATH")
 
 
 # Post the screenshot on the PR
-gh pr comment "$PR_NUMBER" --body "![Screenshot](attachment://screenshot.png)"
+gh pr comment "$PR_NUMBER" --body "![Screenshot](data:image/png;base64,$(base64 -w0 screenshot.png))"
 
 # Post the screenshot as a comment on the PR
 #pr_comment="![Screenshot](data:image/png;base64,$(base64 -w0 screenshot.png))"
