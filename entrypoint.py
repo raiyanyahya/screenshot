@@ -34,6 +34,7 @@ def main():
     # Upload the image to the comment
     attachment_url = f"https://api.github.com/repos/{os.environ['GITHUB_REPOSITORY']}/issues/comments/{comment_id}/attachments"
     headers = {
+         "Authorization": f"token {os.environ['GITHUB_TOKEN']}",
         "Content-Type": "image/png",
         "Content-Disposition": "attachment;filename=screenshot.png"
     }
@@ -42,7 +43,7 @@ def main():
     response = requests.post(attachment_url, headers=headers, data=image_data, auth=("user", os.environ["GITHUB_TOKEN"]))
 
     # Edit the comment to include the uploaded image
-    call(["gh", "pr", "comment", str(pr_number), "--edit-last", "--body", "![Screenshot](data:image/png;base64,$(base64 -w0 screenshot.png))"])
+    call(["gh", "pr", "comment", str(pr_number), "--edit-last", "--body", "![Screenshot](attachment://screenshot.png)"])
 
     # Logout from GitHub CLI
     #call(["gh", "auth", "logout"])
