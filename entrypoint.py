@@ -35,7 +35,8 @@ def main():
     attachment_url = f"https://api.github.com/repos/{os.environ['GITHUB_REPOSITORY']}/issues/comments/{comment_id}/attachments"
     headers = {
          "Authorization": f"token {os.environ['GITHUB_TOKEN']}",
-        "Content-Type": "image/png",
+        #"Content-Type": "image/png",
+        "Content-Type": "text/markdown; charset=UTF-8"
         "Content-Disposition": "attachment;filename=screenshot.png"
     }
     for entry in os.scandir('.'):
