@@ -1,5 +1,5 @@
 # screenshot
-This GitHub Action takes a screenshot of a given URL and posts the image as a comment on the associated pull request. It's useful for visualizing changes in a UI project, previewing a deployed staging environment, or any situation where a visual representation of the changes in a PR is helpful.
+A GitHub Action which takes a screenshot of a given URL and posts the image as a comment on the associated pull request. It's useful for visualizing changes in a UI project, previewing a deployed staging environment, or any situation where a visual representation of the changes in a PR is helpful.
 
 ## Prerequisites
 To use this action, you must have the following:
