@@ -7,6 +7,9 @@ import requests
 from subprocess import call
 
 def main():
+    # Add safe.directory configuration to git
+    call(["git", "config", "--global", "--add", "safe.directory", "/github/workspace"])
+
     # Take a screenshot using the snapsht CLI tool
     call(["snapsht", "click", os.environ["INPUT_URL"]])
 
