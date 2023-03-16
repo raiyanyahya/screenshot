@@ -17,5 +17,3 @@ jobs:
       uses: ./
       with:
         url: 'https://example.com'
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
