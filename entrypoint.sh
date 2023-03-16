@@ -36,11 +36,8 @@ GITHUB_HOSTNAME=$(echo $GITHUB_SERVER_URL | awk -F[/:] '{print $4}')
 export GH_HOST="$GITHUB_HOSTNAME"
 
 # Post the screenshot on the PR
-gh pr comment "$PR_NUMBER" --body "![Screenshot](screenshot.png)"
+gh pr comment "$PR_NUMBER" --body "![Screenshot](data:image/png;base64,$(base64 -w0 screenshot.png))"
 
 # Post the screenshot as a comment on the PR
 #pr_comment="![Screenshot](data:image/png;base64,$(base64 -w0 screenshot.png))"
 #gh pr comment "$(echo $PR_URL)" --body "$pr_comment"
-
-# Cleanup
-gh auth logout
