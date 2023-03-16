@@ -1,5 +1,5 @@
 name: 'Screenshot Action'
-description: 'Take a screenshot of a URL and post it on the PR'
+description: Takes a screenshot of a URL and posts it on the associated pull request'
 inputs:
   url:
     description: 'The URL to capture a screenshot of'
