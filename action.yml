@@ -1,0 +1,11 @@
+name: 'Screenshot Action'
+description: 'Take a screenshot of a URL and post it on the PR'
+inputs:
+  url:
+    description: 'The URL to capture a screenshot of'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - '${{ inputs.url }}'
