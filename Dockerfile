@@ -6,6 +6,11 @@ RUN pip install snapsht
 # Set the work directory
 WORKDIR /app
 
+# Download and install chrome and run snapsht setup
+RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+RUN sudo dpkg -i google-chrome-stable_current_amd64.deb
+RUN snapsht setup
+
 # Copy the GitHub Action script
 COPY entrypoint.sh /app
 
