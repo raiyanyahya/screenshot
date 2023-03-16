@@ -38,6 +38,9 @@ def main():
         "Content-Type": "image/png",
         "Content-Disposition": "attachment;filename=screenshot.png"
     }
+    for entry in os.scandir('.'):
+        if entry.is_file():
+            print(entry.name)
     with open("screenshot.png", "rb") as image_file:
         image_data = image_file.read()
     response = requests.post(attachment_url, headers=headers, data=image_data, auth=("user", os.environ["GITHUB_TOKEN"]))
