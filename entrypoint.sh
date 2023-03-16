@@ -29,30 +29,9 @@ apt-get update && apt-get install -y gh
 # Get the pull request number from the GitHub Actions event payload
 PR_NUMBER=$(jq -r '.number' "$GITHUB_EVENT_PATH")
 
-UPLOAD_URL="https://api.github.com/repos/$GITHUB_REPOSITORY/issues/$PR_NUMBER/comments"
-UPLOAD_RESPONSE=$(curl \
-  -s \
-  -XPOST \
-  -H "Authorization: token $GITHUB_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d "{ \"body\": \"Uploading screenshot...\" }" \
-  "$UPLOAD_URL")
-
-# Extract the comment ID from the upload response
-COMMENT_ID=$(echo "$UPLOAD_RESPONSE" | jq -r '.id')
-
-# Upload the image to the comment
-gh api "repos/$GITHUB_REPOSITORY/issues/comments/$COMMENT_ID/attachments" \
-  --header "Content-Type: image/png" \
-  --header "Content-Disposition: attachment;filename=screenshot.png" \
-  -XPOST \
-  --input "screenshot.png"
-
-# Edit the comment to include the uploaded image
-gh pr comment "$PR_NUMBER" --edit-last --body "![Screenshot](attachment://screenshot.png)"
 
 # Post the screenshot on the PR
-#gh pr comment "$PR_NUMBER" --body "![Screenshot](data:image/png;base64,$(base64 -w0 screenshot.png))"
+gh pr comment "$PR_NUMBER" --body "![Screenshot](attachment://screenshot.png)"
 
 # Post the screenshot as a comment on the PR
 #pr_comment="![Screenshot](data:image/png;base64,$(base64 -w0 screenshot.png))"
