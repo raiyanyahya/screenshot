@@ -26,13 +26,15 @@ apt-get update && apt-get install -y gh
 #echo "${GITHUB_TOKEN}" | gh auth login --with-token
 
 
-# Get the pull request URL from the GitHub Actions event payload
-PR_URL=$(jq -r '.pull_request.url' "$GITHUB_EVENT_PATH")
+# Get the pull request number from the GitHub Actions event payload
+PR_NUMBER=$(jq -r '.number' "$GITHUB_EVENT_PATH")
 
+# Post the screenshot on the PR
+gh pr comment "$PR_NUMBER" --body "![Screenshot](screenshot.png)"
 
 # Post the screenshot as a comment on the PR
-pr_comment="![Screenshot](data:image/png;base64,$(base64 -w0 screenshot.png))"
-gh pr comment "$(echo $PR_URL)" --body "$pr_comment"
+#pr_comment="![Screenshot](data:image/png;base64,$(base64 -w0 screenshot.png))"
+#gh pr comment "$(echo $PR_URL)" --body "$pr_comment"
 
 # Cleanup
 gh auth logout
