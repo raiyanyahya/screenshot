@@ -1,15 +1,14 @@
-FROM python:3.9-slim
+FROM python:3.10-slim-bullseye
 
-# Install your CLI tool globally
-RUN pip install snapsht
+RUN apt-get -y update && apt-get install -y wget
+RUN wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+RUN apt-get install ./google-chrome-stable_current_amd64.deb -y
+
+# Install snapsht and run setup
+RUN pip install snapsht && snapsht setup
 
 # Set the work directory
 WORKDIR /app
-
-# Download and install chrome and run snapsht setup
-RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-RUN sudo dpkg -i google-chrome-stable_current_amd64.deb
-RUN snapsht setup
 
 # Copy the GitHub Action script
 COPY entrypoint.sh /app
