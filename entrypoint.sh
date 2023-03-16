@@ -11,7 +11,8 @@ if [ -z "${INPUT_URL}" ]; then
   echo "INPUT_URL environment variable is not set."
   exit 1
 fi
-
+# Add an exception for the /github/workspace directory in the Git configuration
+git config --global --add safe.directory /github/workspace
 # Run the CLI tool to take a screenshot and save it
 snapsht click "${INPUT_URL}"
 
