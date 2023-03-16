@@ -22,7 +22,7 @@ echo "deb [signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://
 apt-get update && apt-get install -y gh
 
 # Authenticate with the GitHub CLI
-echo "${GITHUB_TOKEN}" | gh auth login --with-token
+#echo "${GITHUB_TOKEN}" | gh auth login --with-token
 
 # Post the screenshot as a comment on the PR
 pr_comment="![Screenshot](data:image/png;base64,$(base64 -w0 screenshot.png))"
