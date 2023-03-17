@@ -48,7 +48,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Take screenshot and post it on the PR
-      uses: your-username/screenshot-action@master
+      uses: raiyanyahya/screenshot-action@master
       with:
         url: 'https://example.com'
         dropbox_token: ${{ secrets.DROPBOX_TOKEN }}
