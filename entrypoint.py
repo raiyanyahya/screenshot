@@ -20,13 +20,13 @@ def main(url, dropbox_token):
     dbx = dropbox.Dropbox(dropbox_token)
     with open("screenshot.png", "rb") as image_file:
         meta = dbx.files_upload(image_file.read(), f"/screenshots/{os.environ['GITHUB_REPOSITORY']}_PR_{pr_number}.png", mode=dropbox.files.WriteMode("overwrite"))
-        print(meta)
     
     # Check the account type
     account = dbx.users_get_current_account()
-    print(account)
     is_team_account = isinstance(account.account_type, dropbox.users.Team)
 
+    if not is_team_account:
+        print("The dropbox token does not belong to a teams account and image links will be public.")
     # Prepare the shared link settings based on the account type
     if is_team_account:
         shared_link_settings = dropbox.sharing.SharedLinkSettings(requested_visibility=dropbox.sharing.RequestedVisibility.team_only)
@@ -50,7 +50,7 @@ def main(url, dropbox_token):
             raise
 
     comment_body = f"Screenshot uploaded to Dropbox: [View Screenshot]({dropbox_link})"
-    call(["gh", "pr", "comment", str(pr_number), "--edit-last", "--body", comment_body])
+    call(["gh", "pr", "comment", str(pr_number), "--body", comment_body])
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
