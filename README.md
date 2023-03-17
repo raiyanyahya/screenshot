@@ -4,7 +4,7 @@ This GitHub Action takes a screenshot of a given URL, uploads it to Dropbox and 
 ## Prerequisites
 To use this action, you must have the following:
 
-A GitHub repository with a workflow that triggers on pull request events and a DropBox Access Token. The DropBox token should have the `files.content.write` permission.
+A GitHub repository with a workflow that triggers on pull request events and a DropBox Access Token. The DropBox token should have the `files.content.write` and the `sharing.write` permission.
 
 ## Usage
 To use this action in your workflow, follow these steps:
