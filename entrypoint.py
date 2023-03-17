@@ -20,7 +20,6 @@ def main(url, dropbox_token):
     dbx = dropbox.Dropbox(dropbox_token)
     with open("screenshot.png", "rb") as image_file:
         meta = dbx.files_upload(image_file.read(), f"/screenshots/{os.environ['GITHUB_REPOSITORY']}_PR_{pr_number}.png", mode=dropbox.files.WriteMode("overwrite"))
-        print(meta)
     
     # Check the account type
     account = dbx.users_get_current_account()
@@ -51,7 +50,7 @@ def main(url, dropbox_token):
             raise
 
     comment_body = f"Screenshot uploaded to Dropbox: [View Screenshot]({dropbox_link})"
-    call(["gh", "pr", "comment", str(pr_number), "--edit-last", "--body", comment_body])
+    call(["gh", "pr", "comment", str(pr_number), "--body", comment_body])
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
