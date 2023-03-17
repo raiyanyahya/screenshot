@@ -30,7 +30,7 @@ def main(url, dropbox_token):
         #dropbox_link = dbx.sharing_create_shared_link_with_settings(f"/screenshots/{os.environ['GITHUB_REPOSITORY']}_PR_{pr_number}.png").url
     except dropbox.exceptions.ApiError as e:
         if e.error.is_shared_link_already_exists():
-            shared_link_metadata = dbx.sharing_get_shared_links(dropbox_file_path)
+            shared_link_metadata = dbx.sharing_get_shared_links(f"/screenshots/{os.environ['GITHUB_REPOSITORY']}_PR_{pr_number}.png")
             shared_link = shared_link_metadata.links[0].url
             dropbox_link = shared_link.replace('?dl=0', '?dl=1')
         else:
