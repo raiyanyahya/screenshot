@@ -1,5 +1,5 @@
 # screenshot to dropbox
-This GitHub Action takes a screenshot of a given URL, uploads it to Dropbox and posts the image url as a comment on the associated pull request. It's useful for visualizing changes in a UI project, previewing a deployed staging environment, or any situation where a visual representation of the changes in a PR is helpful.
+This GitHub Action takes a `full screen scrolling` screenshot of a given URL, uploads it to Dropbox and posts the image url as a comment on the associated pull request. It's useful for visualizing changes in a UI project, previewing a deployed staging environment, or any situation where a visual representation of the changes in a PR is helpful.
 
 ## Prerequisites
 To use this action, you must have the following:
