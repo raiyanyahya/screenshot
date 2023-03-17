@@ -24,7 +24,8 @@ def main(url, dropbox_token):
 
     # Try to create a shared link, and if it already exists, use the existing link
     try:
-        shared_link_metadata = dbx.sharing_create_shared_link_with_settings(f"/screenshots/{os.environ['GITHUB_REPOSITORY']}_PR_{pr_number}.png")
+        shared_link_metadata = dbx.sharing_create_shared_link_with_settings(f"/screenshots/{os.environ['GITHUB_REPOSITORY']}_PR_{pr_number}.png",dropbox.sharing.SharedLinkSettings(
+        requested_visibility=dropbox.sharing.RequestedVisibility.team_only))
         shared_link = shared_link_metadata.url
         dropbox_link = shared_link.replace('?dl=0', '?dl=1')
         #dropbox_link = dbx.sharing_create_shared_link_with_settings(f"/screenshots/{os.environ['GITHUB_REPOSITORY']}_PR_{pr_number}.png").url
