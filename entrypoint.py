@@ -21,8 +21,15 @@ def main(url, dropbox_token):
     with open("screenshot.png", "rb") as image_file:
         dbx.files_upload(image_file.read(), f"/screenshots/{os.environ['GITHUB_REPOSITORY']}_PR_{pr_number}.png", mode=dropbox.files.WriteMode("overwrite"))
 
-    # Send a PR comment with the Dropbox link
-    dropbox_link = dbx.sharing_create_shared_link_with_settings(f"/screenshots/{os.environ['GITHUB_REPOSITORY']}_PR_{pr_number}.png").url
+    # Try to create a shared link, and if it already exists, use the existing link
+    try:
+        dropbox_link = dbx.sharing_create_shared_link_with_settings(f"/screenshots/{os.environ['GITHUB_REPOSITORY']}_PR_{pr_number}.png").url
+    except dropbox.exceptions.ApiError as e:
+        if e.error.is_shared_link_already_exists():
+            dropbox_link = e.error.get_shared_link_already_exists().metadata.url
+        else:
+            raise
+
     comment_body = f"Screenshot uploaded to Dropbox: [View Screenshot]({dropbox_link})"
     call(["gh", "pr", "comment", str(pr_number), "--edit-last", "--body", comment_body])
 
