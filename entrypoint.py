@@ -19,14 +19,15 @@ def main(url, dropbox_token):
     # Authenticate Dropbox and upload the screenshot
     dbx = dropbox.Dropbox(dropbox_token)
     with open("screenshot.png", "rb") as image_file:
-        dbx.files_upload(image_file.read(), f"/screenshots/{os.environ['GITHUB_REPOSITORY']}_PR_{pr_number}.png", mode=dropbox.files.WriteMode("overwrite"))
+        meta = dbx.files_upload(image_file.read(), f"/screenshots/{os.environ['GITHUB_REPOSITORY']}_PR_{pr_number}.png", mode=dropbox.files.WriteMode("overwrite"))
+        print(meta)
 
     # Try to create a shared link, and if it already exists, use the existing link
     try:
         dropbox_link = dbx.sharing_create_shared_link_with_settings(f"/screenshots/{os.environ['GITHUB_REPOSITORY']}_PR_{pr_number}.png").url
     except dropbox.exceptions.ApiError as e:
         if e.error.is_shared_link_already_exists():
-            dropbox_link = e.error.shared_link_already_exists.url
+            dropbox_link = e.error.shared_link_already_exists().url
         else:
             raise
 
