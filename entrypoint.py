@@ -7,6 +7,7 @@ from subprocess import call
 import dropbox
 
 def main(url, dropbox_token):
+    call(["git", "config", "--global", "--add", "safe.directory", "/github/workspace"])
     # Take a screenshot using the snapsht CLI tool
     call(["snapsht", "click", url])
     print(url)
