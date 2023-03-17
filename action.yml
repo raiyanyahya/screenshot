@@ -1,5 +1,9 @@
 name: "Screenshot to Dropbox"
 description: "Take a screenshot of a URL, upload it to Dropbox, and post a PR comment with the Dropbox link"
+author: 'Raiyan Yahya'
+branding:
+  icon: 'image' # Name of an Octicon https://primer.style/octicons/
+  color: 'blue' # A color in lowercase, e.g., blue, green, red, etc.
 inputs:
   url:
     description: "The URL to take a screenshot of"
