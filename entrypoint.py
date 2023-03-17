@@ -24,7 +24,8 @@ def main(url, dropbox_token):
     
     # Check the account type
     account = dbx.users_get_current_account()
-    is_team_account = account.account_type.is_team()
+    print(account)
+    is_team_account = isinstance(account.account_type, dropbox.users.Team)
 
     # Prepare the shared link settings based on the account type
     if is_team_account:
