@@ -16,6 +16,8 @@ jobs:
     - name: Take screenshot and post it on the PR
       uses: ./
       with:
-        url: 'https://example.com'
+        url: 'https://google.com'
+        dropbox_token: ${{ secrets.DROPBOX_TOKEN }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
