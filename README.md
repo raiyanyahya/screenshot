@@ -6,6 +6,17 @@ To use this action, you must have the following:
 
 A GitHub repository with a workflow that triggers on pull request events and a DropBox Access Token. The DropBox token should have the `files.content.write` and the `sharing.write` permission.
 
+## Recommended permissions
+
+For the execution of this action, it must be able to comment on a PR.  
+This can be achieved with the following [configuration in the action](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#permissions) if the permissions are restricted:
+
+```yaml
+permissions:
+  issues: write
+  pull-requests: write
+```
+
 ## Usage
 To use this action in your workflow, follow these steps:
 
