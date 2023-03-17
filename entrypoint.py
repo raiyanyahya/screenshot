@@ -21,13 +21,25 @@ def main(url, dropbox_token):
     with open("screenshot.png", "rb") as image_file:
         meta = dbx.files_upload(image_file.read(), f"/screenshots/{os.environ['GITHUB_REPOSITORY']}_PR_{pr_number}.png", mode=dropbox.files.WriteMode("overwrite"))
         print(meta)
+    
+    # Check the account type
+    account = dbx.users_get_current_account()
+    is_team_account = account.account_type.is_team()
+
+    # Prepare the shared link settings based on the account type
+    if is_team_account:
+        shared_link_settings = dropbox.sharing.SharedLinkSettings(requested_visibility=dropbox.sharing.RequestedVisibility.team_only)
+    else:
+        shared_link_settings = None
 
     # Try to create a shared link, and if it already exists, use the existing link
     try:
-        shared_link_metadata = dbx.sharing_create_shared_link_with_settings(f"/screenshots/{os.environ['GITHUB_REPOSITORY']}_PR_{pr_number}.png",dropbox.sharing.SharedLinkSettings(requested_visibility=dropbox.sharing.RequestedVisibility.password,link_password="ABCD123"))
+        if shared_link_settings:
+            shared_link_metadata = dbx.sharing_create_shared_link_with_settings(f"/screenshots/{os.environ['GITHUB_REPOSITORY']}_PR_{pr_number}.png", shared_link_settings)
+        else:
+            shared_link_metadata = dbx.sharing_create_shared_link_with_settings(f"/screenshots/{os.environ['GITHUB_REPOSITORY']}_PR_{pr_number}.png")
         shared_link = shared_link_metadata.url
         dropbox_link = shared_link.replace('?dl=0', '?dl=1')
-        #dropbox_link = dbx.sharing_create_shared_link_with_settings(f"/screenshots/{os.environ['GITHUB_REPOSITORY']}_PR_{pr_number}.png").url
     except dropbox.exceptions.ApiError as e:
         if e.error.is_shared_link_already_exists():
             shared_link_metadata = dbx.sharing_get_shared_links(f"/screenshots/{os.environ['GITHUB_REPOSITORY']}_PR_{pr_number}.png")
