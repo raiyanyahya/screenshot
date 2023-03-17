@@ -24,9 +24,10 @@ def main(url, dropbox_token):
     
     # Check the account type
     account = dbx.users_get_current_account()
-    print(account)
     is_team_account = isinstance(account.account_type, dropbox.users.Team)
 
+    if not is_team_account:
+        print("The dropbox token does not belong to a teams account and image links will be public.")
     # Prepare the shared link settings based on the account type
     if is_team_account:
         shared_link_settings = dropbox.sharing.SharedLinkSettings(requested_visibility=dropbox.sharing.RequestedVisibility.team_only)
