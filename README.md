@@ -1,10 +1,10 @@
 # screenshot
-This GitHub Action takes a screenshot of a given URL and posts the image as a comment on the associated pull request. It's useful for visualizing changes in a UI project, previewing a deployed staging environment, or any situation where a visual representation of the changes in a PR is helpful.
+This GitHub Action takes a screenshot of a given URL, uploads it to Dropbox and posts the image url as a comment on the associated pull request. It's useful for visualizing changes in a UI project, previewing a deployed staging environment, or any situation where a visual representation of the changes in a PR is helpful.
 
 ## Prerequisites
 To use this action, you must have the following:
 
-A GitHub repository with a workflow that triggers on pull request events.
+A GitHub repository with a workflow that triggers on pull request events and a DropBox Access Token.
 
 ## Usage
 To use this action in your workflow, follow these steps:
@@ -40,16 +40,18 @@ jobs:
       uses: your-username/screenshot-action@master
       with:
         url: 'https://example.com'
+        dropbox_token: ${{ secrets.DROPBOX_TOKEN }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
-This example workflow runs on pull request events with opened and synchronize types. It checks out the repository, captures a screenshot using the snapsht CLI tool, and posts the image as a comment on the pull request.
+This example workflow runs on pull request events with opened and synchronize types. It checks out the repository, captures a screenshot using the snapsht CLI tool, uploads it to DropBox and posts the image url as a comment on the pull request.
 
 ## Configuration
 Currently, this action takes a single required input:
 
 url: The URL to capture a screenshot of.
 The GITHUB_TOKEN environment variable is also required and should be set to ${{ secrets.GITHUB_TOKEN }} to use the default token provided by GitHub Actions.
+The DROPBOX_TOKEN is stored as a repository secret.
 
 ## Contributing
 Contributions to this project are welcome! Please feel free to open issues or submit pull requests with bug fixes, improvements, or new features.

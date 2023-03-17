@@ -1,11 +1,15 @@
-name: 'Screenshot Action'
-description: Takes a screenshot of a URL and posts it on the associated pull request'
+name: "Screenshot to Dropbox"
+description: "Take a screenshot of a URL, upload it to Dropbox, and post a PR comment with the Dropbox link"
 inputs:
   url:
-    description: 'The URL to capture a screenshot of'
+    description: "The URL to take a screenshot of"
+    required: true
+  dropbox_token:
+    description: "The Dropbox access token"
     required: true
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: "docker"
+  image: "Dockerfile"
   args:
     - '${{ inputs.url }}'
+    - '${{ inputs.dropbox_token }}'

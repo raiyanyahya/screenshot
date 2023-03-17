@@ -17,5 +17,7 @@ jobs:
       uses: ./
       with:
         url: 'https://example.com'
+        dropbox_token: ${{ secrets.DROPBOX_TOKEN }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
